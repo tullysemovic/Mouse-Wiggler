@@ -32,6 +32,8 @@ namespace MouseWiggler
         public Form1()
         {
             InitializeComponent();
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.Text = "MouseWiggler";
         }
 
         private async void Wiggle_ClickAsync(object sender, EventArgs e)
@@ -39,13 +41,17 @@ namespace MouseWiggler
             if (isWiggling)
             {
                 isWiggling = false;
+                WiggleButton.BackgroundImage = global::MouseWiggler.Properties.Resources.wigglesOn;
+
             }
             else
             {
                 isWiggling = true;
-                Cursor.Position = new Point(Cursor.Position.X + 50, Cursor.Position.Y + 50);
+                Cursor.Position = WiggleButton.PointToScreen(new Point(0, 0));
+                WiggleButton.BackgroundImage = global::MouseWiggler.Properties.Resources.wigglesOff;
 
             }
+            WiggleButton.BackgroundImageLayout = ImageLayout.Stretch;
 
             this.Cursor = new Cursor(Cursor.Current.Handle);
 
@@ -74,7 +80,7 @@ namespace MouseWiggler
                 LeftMouseClick(Cursor.Position.X, Cursor.Position.Y);
 
 
-                Thread.Sleep(2000);
+                Thread.Sleep(5000);
             }
 
         }
